@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# 提交前隐私体检：命中敏感内容则拒绝提交
+cd "$(git rev-parse --show-toplevel)" || exit 0
+python3 tools/secret_scan.py --staged || {
+  echo
+  echo "🚫 提交被拦下：上面的内容里疑似有密钥/隐私信息。"
+  echo "   确需提交请先清理；跳过检查（不推荐）：git commit --no-verify"
+  exit 1
+}

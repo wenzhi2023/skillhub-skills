@@ -46,9 +46,25 @@ CHANGELOG="修复xxx" ./tools/publish_all.sh --real   # 自定义变更说明
 
 单个发布：`skillhub publish skills/<skill名> --dry-run`
 
+## 🛡 隐私防线（自动，不靠人记）
+
+**每次提交、每次发布前都会自动跑 `tools/secret_scan.py` 隐私体检**：
+
+- `.githooks/pre-commit`：`git commit` 前扫暂存区，命中密钥/隐私内容 → **直接拒绝提交**
+- `tools/publish_all.sh`：发布前扫 `skills/`，不通过 → **中止发布**
+- 手动随时跑：`python3 tools/secret_scan.py`
+
+会拦截：skillhub Token（`skh_`）、API Key/Secret、Bearer Token、AKIA、私钥、cookie 字段、
+飞书/Notion 页面 ID、邮箱、`/home/<用户名>/` 这类绝对路径、内部域名（图床/wiki）。
+
+> **新克隆仓库后要启用钩子（每个克隆做一次）**：
+> ```bash
+> git config core.hooksPath .githooks
+> ```
+
 ## 铁律
 
-1. **绝不提交**：API Key / token / cookie / 个人 ID / 内部链接（.gitignore 已挡常见形式，但提交前自己看一眼 diff）
+1. **绝不提交**：API Key / token / cookie / 个人 ID / 内部链接（有上面的自动体检兜底，但别故意试）
 2. 每个 skill 自带 `bootstrap.sh`（装依赖）+ `doctor.sh`（自检）—— 别人装了才能跑起来
 3. `slug` 全网唯一，建议统一前缀 `wenzhi-`
 4. 改了 skill 就递增 `version`，发布时写 `--changelog`

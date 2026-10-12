@@ -10,6 +10,12 @@ REAL=0
 [ "${1:-}" = "--real" ] && REAL=1
 
 found=0; ok=0; bad=0
+
+# 发布前体检：隐私/密钥
+if ! python3 "$ROOT/tools/secret_scan.py" "$ROOT/skills"; then
+  echo "🚫 体检未通过，已中止发布（先清理敏感内容）"; exit 1
+fi
+echo
 while IFS= read -r d; do
   name="${d#$ROOT/skills/}"
   echo "──────── $name ────────"
