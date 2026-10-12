@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+# 密钥与本地状态（绝不入库）
+*.env
+.env*
+!*.env.EXAMPLE
+*.key
+*.pem
+.state/
+.DS_Store

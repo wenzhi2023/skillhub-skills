@@ -1,0 +1,37 @@
+---
+# —— skillhub 必需 ——
+slug: your-skill-slug
+displayName: 展示名称
+version: 1.0.0
+# —— 建议 ——
+summary: 一句话说明这个 skill 做什么
+description: 更详细的描述（何时用、解决什么问题）
+tags: [标签1, 标签2]
+license: MIT
+# —— Hermes 兼容（可选，不影响 skillhub）——
+name: your-skill-slug
+metadata:
+  hermes:
+    tags: [标签1]
+---
+
+# 技能标题
+
+## When to Use
+- 用户说「……」时
+- 不适用：……
+
+## 依赖
+- 命令：`curl`、`whois`（bootstrap.sh 会装）
+- 环境变量：`XXX_KEY`（见 .env.EXAMPLE）
+
+## 用法
+```bash
+python3 scripts/xxx.py <参数>
+```
+
+## 输出
+说明返回什么。
+
+## 坑
+- 踩过的坑写这里，避免重复犯错
